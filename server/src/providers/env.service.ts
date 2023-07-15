@@ -3,6 +3,8 @@ import { ConfigType } from '@nestjs/config';
 
 import AppConfig from 'src/config/env/app.config';
 import DbConfig from 'src/config/env/db.config';
+import SentryConfig from "src/config/env/sentry.config";
+import Sentry from "@sentry/node";
 
 type TNodeEnv = 'PRODUCTION' | 'DEVELOPMENT';
 
@@ -13,6 +15,8 @@ export class EnvService {
         private readonly appConfig: ConfigType<typeof AppConfig>,
         @Inject(DbConfig.KEY)
         private readonly dbConfig: ConfigType<typeof DbConfig>,
+        @Inject(SentryConfig.KEY)
+        private readonly sentryConfig: ConfigType<typeof SentryConfig>
     ) {}
 
     getNodeEnv(): TNodeEnv {
@@ -28,5 +32,9 @@ export class EnvService {
             username: this.dbConfig.dbUsername,
             password: this.dbConfig.dbPassword,
         };
+    }
+
+    getSentryConfig() {
+        return this.sentryConfig.dsn;
     }
 }

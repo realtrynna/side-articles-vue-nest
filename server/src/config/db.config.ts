@@ -1,6 +1,7 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 import { EnvService } from 'src/providers/env.service';
+import { UserEntity } from "../models/entities/user.entity";
 
 type TDbModuleOption = Partial<TypeOrmModuleOptions>;
 
@@ -15,11 +16,11 @@ export default (envService: EnvService): TypeOrmModuleOptions => {
         port,
         username,
         password,
-        autoLoadEntities: true,
+        // autoLoadEntities: true,
         dateStrings: true,
         bigNumberStrings: false,
         timezone: 'Asia/Seoul',
-        entities: [],
+        entities: [UserEntity],
     };
 
     const developmentMode = {

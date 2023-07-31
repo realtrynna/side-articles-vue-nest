@@ -1,5 +1,5 @@
 import path from 'path';
-import { Module } from '@nestjs/common';
+import { Module, Global } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
 import { EnvService } from 'src/providers';
@@ -8,10 +8,10 @@ import AppConfig from 'src/config/env/app.config';
 import DbConfig from 'src/config/env/db.config';
 import { validationSchema } from 'src/config/env/validation-schema';
 
+@Global()
 @Module({
     imports: [
         ConfigModule.forRoot({
-            isGlobal: true,
             cache: true,
             validationSchema,
             load: [AppConfig, DbConfig],

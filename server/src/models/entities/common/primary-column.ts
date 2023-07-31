@@ -1,8 +1,8 @@
 import { PrimaryGeneratedColumn } from 'typeorm';
 
-import { TimeColumn } from './time-column';
+import { CreateTimeColumn } from './create-time-column';
 
-export class PrimaryColumn extends TimeColumn {
+export class PrimaryColumn extends CreateTimeColumn {
     @PrimaryGeneratedColumn()
     id: number;
 }

@@ -1,33 +1,15 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { UserModule } from 'src/modules';
 import { EnvModule } from 'src/modules';
-import { EnvService } from 'src/providers';
-import dbConfig from 'src/config/db.config';
+import { typeormModuleOption } from 'src/config/db';
 
 @Module({
     imports: [
         EnvModule,
         UserModule,
-        SentryModule.forRootAsync({
-            imports: [EnvModule],
-            inject: [EnvService],
-            useFactory: async (
-                envService: EnvService
-            ): Promise<any> => {
-                console.log("sentry init");
-                return SentryConfig(envService);
-            }
-        }),
-        TypeOrmModule.forRootAsync({
-            imports: [EnvModule],
-            inject: [EnvService],
-            useFactory: async (
-                envService: EnvService,
-            ): Promise<any> => {
-                return dbConfig(envService);
-            },
-        }),
+        TypeOrmModule.forRootAsync(typeormModuleOption),
     ],
     controllers: [],
     providers: [],

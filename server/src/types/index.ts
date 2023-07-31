@@ -1,1 +1,1 @@
-export type TEnvironmentMode = "development" | "production";
+export type TEnvironmentMode = 'DEVELOPMENT' | 'PRODUCTION';

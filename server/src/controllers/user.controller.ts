@@ -1,21 +1,19 @@
-import {
-    Controller,
-    Body,
-    Query,
-    Param,
-    Get,
-    Post,
-    HttpCode,
-} from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 
-import { UserService } from 'src/providers/user.service';
+import { UserService } from "src/providers";
 
-@Controller('user')
+@Controller('users')
 export class UserController {
-    constructor(private readonly userService: UserService) {}
+    constructor(
+        private readonly userService: UserService
+    ) {
+    }
+
 
     @Get()
-    async validateUser() {
-        return this.userService.validateUser();
+    async getUserList() {
+        const result = await this.userService.getUserList();
+
+        return "user list";
     }
 }

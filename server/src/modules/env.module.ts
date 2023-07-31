@@ -6,6 +6,7 @@ import { EnvService } from 'src/providers';
 
 import AppConfig from 'src/config/env/app.config';
 import DbConfig from 'src/config/env/db.config';
+import SentryConfig from "src/config/env/sentry.config";
 import { validationSchema } from 'src/config/env/validation-schema';
 
 @Global()
@@ -14,7 +15,11 @@ import { validationSchema } from 'src/config/env/validation-schema';
         ConfigModule.forRoot({
             cache: true,
             validationSchema,
-            load: [AppConfig, DbConfig],
+            load: [
+                AppConfig,
+                DbConfig,
+                SentryConfig,
+            ],
             envFilePath:
                 process.env.NODE_ENV === 'PRODUCTION'
                     ? path.resolve(__dirname, '../../.env')

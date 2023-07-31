@@ -1,19 +1,23 @@
-import { Injectable } from '@nestjs/common';
-
-import { AuthService } from 'src/providers/auth.service';
+import { Injectable } from "@nestjs/common";
+import { InjectSentry, SentryService } from "@ntegral/nestjs-sentry";
 
 @Injectable()
 export class UserService {
-    constructor(private readonly authService: AuthService) {}
+  constructor(
+      @InjectSentry() private readonly sentryLogger: SentryService
+  ) {
+  }
 
-    async getUserList() {
-        return [
-            { id: 1, name: '사용자 1' },
-            { id: 2, name: '사용자 2' },
-        ];
-    }
+  // 잔다리로3안길 23
 
-    async validateUser() {
-        return this.authService.validateUser();
+  async getUserList() {
+    try {
+      console.log("service execute");
+
+      this.sentryLogger.instance().captureMessage("Test the sentry message method.");
+
+    } catch (err) {
+      console.error(err);
     }
+  }
 }
